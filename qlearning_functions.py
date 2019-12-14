@@ -19,7 +19,9 @@ def agent_training(env, qtable, total_episodes=50000, max_steps=99, learning_rat
         decay_rate: exploration decay rate
         
     Output:
-        qtable: returns trained q-table'''
+        trained_qtable: returns trained q-table'''
+    
+    trained_qtable = qtable.copy()
     
     for episode in range(total_episodes):
         state = env.reset()
@@ -37,8 +39,8 @@ def agent_training(env, qtable, total_episodes=50000, max_steps=99, learning_rat
 
             new_state, reward, done, info = env.step(action)
 
-            qtable[state, action] = qtable[state, action] + learning_rate * (reward + gamma *
-                                        np.max(qtable[new_state, :]) - qtable[state, action])
+            trained_qtable[state, action] = trained_qtable[state, action] + learning_rate * (reward + gamma *
+                                        np.max(trained_qtable[new_state, :]) - trained_qtable[state, action])
 
             state = new_state
 
@@ -48,7 +50,7 @@ def agent_training(env, qtable, total_episodes=50000, max_steps=99, learning_rat
 
         epsilon = min_epsilon + (max_epsilon - min_epsilon) * np.exp(-decay_rate * episode)
 
-    return qtable
+    return trained_qtable
 
 
 def agent_testing(env, qtable, tot_test_episodes=1000, max_steps=99, render=False):
