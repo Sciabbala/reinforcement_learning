@@ -1,8 +1,8 @@
 from random import uniform
 import numpy as np
 
-def agent_training(env, qtable, total_episodes=50000, max_steps=99, learning_rate=1,
-                   gamma=1, epsilon=1, max_epsilon=1, min_epsilon=0.01, decay_rate=0.01):
+def agent_training(env, qtable, total_episodes=50000, max_steps=99, learning_rate=0.7,
+                   gamma=0.618, epsilon=1, max_epsilon=1, min_epsilon=0.01, decay_rate=0.01):
     
     '''This function will train an agent to play the Taxi-v3 environment
     
